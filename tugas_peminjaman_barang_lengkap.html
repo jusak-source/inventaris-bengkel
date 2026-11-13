@@ -3,163 +3,299 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aplikasi Peminjaman Barang Sekolah</title>
+  <title>Peminjaman Barang Bengkel IT</title>
 
-  <!-- BAGIAN CSS: Mengatur tampilan aplikasi -->
   <style>
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f1f5f9;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f0f4f8;
       color: #1e293b;
+      line-height: 1.5;
     }
+
+    /* ===== HEADER ===== */
     header {
-      background: #123b68;
+      background: linear-gradient(135deg, #0f172a, #1e3a5f);
       color: white;
       text-align: center;
-      padding: 24px 15px;
+      padding: 28px 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.15);
     }
-    header h1 { margin: 0 0 8px; }
-    header p { margin: 0; color: #dbeafe; }
-    main { max-width: 1150px; margin: 24px auto; padding: 0 16px; }
+    header h1 {
+      margin: 0 0 6px;
+      font-size: 26px;
+      letter-spacing: 0.5px;
+    }
+    header p {
+      margin: 0;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+    .badge {
+      display: inline-block;
+      background: #3b82f6;
+      color: white;
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    /* ===== MAIN ===== */
+    main {
+      max-width: 1180px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    /* ===== DASHBOARD CARDS ===== */
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
       gap: 14px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
-    .card, .panel {
+    .card {
       background: white;
-      padding: 18px;
-      border-radius: 12px;
-      box-shadow: 0 3px 12px rgba(15,23,42,.07);
+      padding: 18px 20px;
+      border-radius: 14px;
+      box-shadow: 0 2px 10px rgba(15,23,42,.06);
+      border: 1px solid #e2e8f0;
     }
-    .card small { color: #64748b; }
+    .card small {
+      color: #64748b;
+      font-size: 13px;
+    }
     .card strong {
       display: block;
       margin-top: 8px;
-      color: #123b68;
-      font-size: 28px;
+      font-size: 30px;
+      font-weight: 700;
     }
-    h2 { margin-top: 0; color: #123b68; font-size: 20px; }
+    .card.blue strong { color: #1d4ed8; }
+    .card.orange strong { color: #c2410c; }
+    .card.green strong { color: #15803d; }
+
+    /* ===== PANEL ===== */
+    .panel {
+      background: white;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 2px 10px rgba(15,23,42,.06);
+      border: 1px solid #e2e8f0;
+      margin-bottom: 20px;
+    }
+    h2 {
+      margin: 0 0 16px;
+      color: #0f172a;
+      font-size: 18px;
+    }
+
+    /* ===== FORM ===== */
     .form-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
     }
-    label { display: block; font-weight: bold; margin-bottom: 6px; }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 13px;
+      color: #334155;
+    }
     input, select {
       width: 100%;
-      padding: 11px;
+      padding: 11px 12px;
       border: 1px solid #cbd5e1;
-      border-radius: 7px;
+      border-radius: 8px;
       font-size: 14px;
-      background: white;
+      background: #fff;
+      transition: border-color .2s;
     }
-    .actions { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 16px; }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59,130,246,.15);
+    }
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    /* ===== BUTTONS ===== */
     button {
       border: 0;
-      padding: 10px 14px;
-      border-radius: 7px;
+      padding: 11px 16px;
+      border-radius: 8px;
       cursor: pointer;
-      font-weight: bold;
+      font-weight: 600;
+      font-size: 13px;
+      transition: all .15s;
     }
-    button:hover { opacity: .88; }
-    .primary { background: #1769aa; color: white; }
-    .green { background: #15803d; color: white; }
+    button:hover {
+      transform: translateY(-1px);
+      opacity: .92;
+    }
+    .primary { background: #2563eb; color: white; }
+    .green { background: #16a34a; color: white; }
     .red { background: #dc2626; color: white; }
-    .gray { background: #e2e8f0; color: #1e293b; }
-    .panel { margin-bottom: 20px; }
-    .search { max-width: 360px; margin-bottom: 14px; }
-    .table-wrap { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; min-width: 850px; }
+    .gray { background: #e2e8f0; color: #334155; }
+
+    /* ===== TOOLBAR & SEARCH ===== */
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .search {
+      flex: 1;
+      min-width: 220px;
+      max-width: 380px;
+    }
+
+    /* ===== TABLE ===== */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 900px;
+    }
     th, td {
       border-bottom: 1px solid #e2e8f0;
-      padding: 11px 9px;
+      padding: 12px 10px;
       text-align: left;
       font-size: 13px;
     }
-    th { background: #eaf2fb; color: #123b68; }
-    .status {
-      padding: 5px 8px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: bold;
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 600;
       white-space: nowrap;
     }
-    .borrowed { background: #fef3c7; color: #92400e; }
-    .returned { background: #dcfce7; color: #166534; }
-    .empty { text-align: center; color: #64748b; padding: 20px; }
-    footer { text-align: center; color: #64748b; padding: 20px; }
-    @media(max-width:650px) {
-      .form-grid { grid-template-columns: 1fr; }
-      header h1 { font-size: 21px; }
+    tr:hover td { background: #f8fafc; }
+
+    /* ===== STATUS BADGE ===== */
+    .status {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
     }
+    .borrowed { background: #ffedd5; color: #9a3412; }
+    .returned { background: #dcfce7; color: #166534; }
+
+    .empty {
+      text-align: center;
+      color: #94a3b8;
+      padding: 28px;
+      font-size: 14px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      color: #94a3b8;
+      padding: 24px 16px;
+      font-size: 13px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 680px) {
+      .form-grid { grid-template-columns: 1fr; }
+      header h1 { font-size: 20px; }
+    }
+
+    /* ===== PRINT ===== */
     @media print {
       header, .form-panel, .no-print, footer { display: none !important; }
       body { background: white; }
       main { max-width: none; margin: 0; }
-      .panel, .card { box-shadow: none; }
+      .panel, .card { box-shadow: none; border: none; }
     }
   </style>
 </head>
-
 <body>
-  <!-- BAGIAN HEADER -->
+
+  <!-- HEADER -->
   <header>
-    <h1>SISTEM PEMINJAMAN BARANG SEKOLAH</h1>
-    <p>Aplikasi Pengelolaan Peminjaman dan Pengembalian Inventaris</p>
+    <h1>SISTEM PEMINJAMAN BARANG</h1>
+    <p>Bengkel IT · Pengelolaan Inventaris Peralatan SMK BK II</p>
+    <div class="badge">Laboratorium / Bengkel Komputer</div>
   </header>
 
   <main>
-    <!-- BAGIAN DASHBOARD -->
+    <!-- DASHBOARD -->
     <section class="cards">
-      <div class="card">
+      <div class="card blue">
         <small>Total Transaksi</small>
         <strong id="totalTransaksi">0</strong>
       </div>
-      <div class="card">
-        <small>Barang Sedang Dipinjam</small>
+      <div class="card orange">
+        <small>Sedang Dipinjam</small>
         <strong id="totalDipinjam">0</strong>
       </div>
-      <div class="card">
-        <small>Barang Sudah Dikembalikan</small>
+      <div class="card green">
+        <small>Sudah Dikembalikan</small>
         <strong id="totalKembali">0</strong>
       </div>
     </section>
 
-    <!-- BAGIAN FORM INPUT -->
+    <!-- FORM INPUT -->
     <section class="panel form-panel">
-      <h2>Form Input Peminjaman</h2>
+      <h2>📝 Form Peminjaman Barang</h2>
 
       <form id="formPeminjaman">
         <div class="form-grid">
           <div>
             <label for="nama">Nama Peminjam</label>
-            <input type="text" id="nama" placeholder="Masukkan nama lengkap" required>
+            <input type="text" id="nama" placeholder="Nama lengkap siswa / guru" required>
           </div>
 
           <div>
-            <label for="kelas">Kelas / Bagian</label>
-            <input type="text" id="kelas" placeholder="Contoh: XI RPL" required>
+            <label for="kelas">Kelas / Jabatan</label>
+            <input type="text" id="kelas" placeholder="Contoh: XII RPL 1 / Guru TIK" required>
           </div>
 
           <div>
             <label for="barang">Nama Barang</label>
             <select id="barang" required>
-              <option value="">-- Pilih Barang --</option>
+              <option value="">-- Pilih Barang Bengkel IT --</option>
               <option value="Laptop">Laptop</option>
+              <option value="PC / Komputer Rakitan">PC / Komputer Rakitan</option>
+              <option value="Monitor">Monitor</option>
               <option value="Proyektor">Proyektor</option>
-              <option value="Kamera">Kamera</option>
-              <option value="Kabel HDMI">Kabel HDMI</option>
-              <option value="Mouse">Mouse</option>
               <option value="Keyboard">Keyboard</option>
+              <option value="Mouse">Mouse</option>
+              <option value="Kabel HDMI">Kabel HDMI</option>
+              <option value="Kabel LAN">Kabel LAN</option>
+              <option value="Switch Hub">Switch Hub</option>
+              <option value="Router">Router</option>
+              <option value="Crimping Tool">Crimping Tool</option>
+              <option value="Tang Crimping">Tang Crimping</option>
+              <option value="Tester Kabel">Tester Kabel</option>
+              <option value="Obeng Set">Obeng Set</option>
+              <option value="Multimeter">Multimeter</option>
+              <option value="Webcam">Webcam</option>
+              <option value="Speaker">Speaker</option>
+              <option value="Headset">Headset</option>
+              <option value="Flashdisk">Flashdisk</option>
+              <option value="Harddisk External">Harddisk External</option>
             </select>
           </div>
 
           <div>
-            <label for="jumlah">Jumlah Barang</label>
+            <label for="jumlah">Jumlah</label>
             <input type="number" id="jumlah" min="1" value="1" required>
           </div>
 
@@ -174,8 +310,13 @@
           </div>
 
           <div>
-            <label for="petugas">Nama Petugas</label>
-            <input type="text" id="petugas" placeholder="Nama petugas" required>
+            <label for="petugas">Petugas Bengkel</label>
+            <input type="text" id="petugas" placeholder="Nama petugas / teknisi" required>
+          </div>
+
+          <div>
+            <label for="keperluan">Keperluan</label>
+            <input type="text" id="keperluan" placeholder="Contoh: Praktik jaringan, presentasi, dll">
           </div>
         </div>
 
@@ -186,26 +327,25 @@
       </form>
     </section>
 
-    <!-- BAGIAN TABEL DATA -->
+    <!-- TABEL DATA -->
     <section class="panel">
-      <h2>Data Peminjaman Barang</h2>
+      <h2>📋 Data Peminjaman Bengkel IT</h2>
 
-      <div class="no-print">
-        <input class="search" type="search" id="cari"
-          placeholder="Cari nama, kelas, atau barang...">
-        <button class="primary" onclick="cetakLaporan()">Cetak Laporan</button>
+      <div class="toolbar no-print">
+        <input class="search" type="search" id="cari" placeholder="Cari nama, kelas, atau barang...">
+        <button class="primary" onclick="cetakLaporan()">🖨️ Cetak Laporan</button>
       </div>
 
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>No.</th>
+              <th>No</th>
               <th>Nama Peminjam</th>
               <th>Kelas</th>
               <th>Barang</th>
               <th>Jumlah</th>
-              <th>Tgl. Pinjam</th>
+              <th>Tgl Pinjam</th>
               <th>Rencana Kembali</th>
               <th>Petugas</th>
               <th>Status</th>
@@ -213,7 +353,9 @@
             </tr>
           </thead>
           <tbody id="tabelData">
-            <tr><td colspan="10" class="empty">Belum ada data peminjaman.</td></tr>
+            <tr>
+              <td colspan="10" class="empty">Belum ada data peminjaman.</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -221,28 +363,28 @@
   </main>
 
   <footer>
-    Aplikasi Praktik Pemrograman Web | HTML, CSS, dan JavaScript
+    Bengkel IT · Aplikasi Peminjaman Inventaris · HTML + CSS + JavaScript
   </footer>
 
-  <!-- BAGIAN JAVASCRIPT: Mengatur proses aplikasi -->
+  <!-- JAVASCRIPT -->
   <script>
-    // 1. Mengambil elemen HTML yang diperlukan
+    // Ambil elemen
     const form = document.getElementById("formPeminjaman");
     const tabelData = document.getElementById("tabelData");
     const inputCari = document.getElementById("cari");
 
-    // 2. Membaca data dari localStorage agar tidak hilang saat halaman dimuat ulang
+    // Ambil data dari localStorage
     let dataPeminjaman = JSON.parse(
-      localStorage.getItem("dataPeminjamanSekolah") || "[]"
+      localStorage.getItem("dataPeminjamanBengkelIT") || "[]"
     );
 
-    // 3. Mengatur tanggal hari ini secara otomatis
+    // Set tanggal hari ini otomatis
     document.getElementById("tanggalPinjam").value =
       new Date().toLocaleDateString("en-CA");
 
-    // 4. Proses menyimpan data peminjaman
-    form.addEventListener("submit", function(event) {
-      event.preventDefault();
+    // Proses simpan data
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
 
       const nama = document.getElementById("nama").value.trim();
       const kelas = document.getElementById("kelas").value.trim();
@@ -251,10 +393,10 @@
       const tanggalPinjam = document.getElementById("tanggalPinjam").value;
       const tanggalKembali = document.getElementById("tanggalKembali").value;
       const petugas = document.getElementById("petugas").value.trim();
+      const keperluan = document.getElementById("keperluan").value.trim();
 
-      // Validasi data
-      if (!nama || !kelas || !barang || !petugas ||
-          !tanggalPinjam || !tanggalKembali || jumlah < 1) {
+      // Validasi
+      if (!nama || !kelas || !barang || !petugas || !tanggalPinjam || !tanggalKembali || jumlah < 1) {
         alert("Semua data wajib diisi dengan benar!");
         return;
       }
@@ -264,29 +406,24 @@
         return;
       }
 
-      // Membuat objek transaksi baru
+      // Buat objek transaksi
       const transaksi = {
         id: Date.now(),
-        nama: nama,
-        kelas: kelas,
-        barang: barang,
-        jumlah: jumlah,
-        tanggalPinjam: tanggalPinjam,
-        tanggalKembali: tanggalKembali,
-        petugas: petugas,
+        nama,
+        kelas,
+        barang,
+        jumlah,
+        tanggalPinjam,
+        tanggalKembali,
+        petugas,
+        keperluan,
         status: "Dipinjam"
       };
 
-      // Menambahkan transaksi ke dalam array
       dataPeminjaman.push(transaksi);
-
-      // Menyimpan data ke localStorage
       simpanData();
-
-      // Memperbarui tampilan tabel dan dashboard
       tampilkanData();
 
-      // Mengosongkan form setelah berhasil
       form.reset();
       document.getElementById("tanggalPinjam").value =
         new Date().toLocaleDateString("en-CA");
@@ -294,36 +431,28 @@
       alert("Data peminjaman berhasil disimpan!");
     });
 
-    // 5. Fungsi menyimpan data ke browser
+    // Simpan ke localStorage
     function simpanData() {
-      localStorage.setItem(
-        "dataPeminjamanSekolah",
-        JSON.stringify(dataPeminjaman)
-      );
+      localStorage.setItem("dataPeminjamanBengkelIT", JSON.stringify(dataPeminjaman));
     }
 
-    // 6. Fungsi menampilkan data pada tabel
+    // Tampilkan data ke tabel
     function tampilkanData(kataKunci = "") {
       tabelData.innerHTML = "";
 
-      const hasilFilter = dataPeminjaman.filter(function(data) {
-        const gabungan = (
-          data.nama + " " + data.kelas + " " + data.barang
-        ).toLowerCase();
-        return gabungan.includes(kataKunci.toLowerCase());
+      const hasil = dataPeminjaman.filter(d => {
+        const teks = (d.nama + " " + d.kelas + " " + d.barang).toLowerCase();
+        return teks.includes(kataKunci.toLowerCase());
       });
 
-      if (hasilFilter.length === 0) {
-        tabelData.innerHTML =
-          '<tr><td colspan="10" class="empty">Data tidak ditemukan.</td></tr>';
+      if (hasil.length === 0) {
+        tabelData.innerHTML = `<tr><td colspan="10" class="empty">Data tidak ditemukan.</td></tr>`;
       } else {
-        hasilFilter.forEach(function(data, index) {
-          const statusClass =
-            data.status === "Dipinjam" ? "borrowed" : "returned";
-
+        hasil.forEach((data, i) => {
+          const statusClass = data.status === "Dipinjam" ? "borrowed" : "returned";
           const baris = document.createElement("tr");
           baris.innerHTML = `
-            <td>${index + 1}</td>
+            <td>${i + 1}</td>
             <td>${aman(data.nama)}</td>
             <td>${aman(data.kelas)}</td>
             <td>${aman(data.barang)}</td>
@@ -343,65 +472,59 @@
         });
       }
 
-      // Memperbarui angka dashboard
-      document.getElementById("totalTransaksi").textContent =
-        dataPeminjaman.length;
-
+      // Update dashboard
+      document.getElementById("totalTransaksi").textContent = dataPeminjaman.length;
       document.getElementById("totalDipinjam").textContent =
         dataPeminjaman.filter(d => d.status === "Dipinjam").length;
-
       document.getElementById("totalKembali").textContent =
         dataPeminjaman.filter(d => d.status === "Dikembalikan").length;
     }
 
-    // 7. Fungsi mengubah status menjadi dikembalikan
+    // Fungsi kembalikan barang
     function kembalikanBarang(id) {
       const data = dataPeminjaman.find(d => d.id === id);
-
       if (!data) return;
 
-      if (confirm("Apakah barang sudah diterima kembali?")) {
+      if (confirm("Apakah barang sudah diterima kembali di bengkel?")) {
         data.status = "Dikembalikan";
         data.tanggalAktualKembali = new Date().toLocaleDateString("en-CA");
         simpanData();
         tampilkanData(inputCari.value);
-        alert("Pengembalian barang berhasil dicatat.");
+        alert("Pengembalian berhasil dicatat.");
       }
     }
 
-    // 8. Fungsi menghapus transaksi
+    // Fungsi hapus data
     function hapusData(id) {
-      if (confirm("Yakin ingin menghapus data peminjaman ini?")) {
+      if (confirm("Yakin ingin menghapus data ini?")) {
         dataPeminjaman = dataPeminjaman.filter(d => d.id !== id);
         simpanData();
         tampilkanData(inputCari.value);
       }
     }
 
-    // 9. Fungsi pencarian data
+    // Fungsi pencarian
     inputCari.addEventListener("input", function() {
       tampilkanData(this.value);
     });
 
-    // 10. Fungsi mencetak laporan
+    // Fungsi cetak
     function cetakLaporan() {
       window.print();
     }
 
-    // 11. Mengamankan teks input agar tidak dibaca sebagai HTML
+    // Amankan teks dari XSS
     function aman(teks) {
-      return String(teks).replace(/[&<>"']/g, function(karakter) {
-        return {
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#39;"
-        }[karakter];
-      });
+      return String(teks).replace(/[&<>"']/g, c => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      }[c]));
     }
 
-    // 12. Menampilkan data yang sudah tersimpan saat halaman dibuka
+    // Tampilkan data saat halaman dibuka
     tampilkanData();
   </script>
 </body>
